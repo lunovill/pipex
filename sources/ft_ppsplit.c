@@ -6,11 +6,12 @@
 /*   By: lunovill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 03:18:24 by lunovill          #+#    #+#             */
-/*   Updated: 2022/05/17 01:36:04 by lunovill         ###   ########.fr       */
+/*   Updated: 2022/05/18 06:33:53 by lunovill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+// #include "libft.h"
 
 static size_t	ft_nworld(const char *s)
 {
@@ -29,7 +30,7 @@ static size_t	ft_nworld(const char *s)
 			if (s[i] == '\'' || s[i] == '\"')
 			{
 				c = s[i++];
-				while ((s[i] != c && s[i]) || (s[i] == c && s[i + 1] != ' ' && s[i]))
+				while (s[i] != c && s[i])
 					i++;
 			}
 			if (s[i])
@@ -48,11 +49,12 @@ static size_t	ft_nchar(const char *s)
 	i = 0;
 	while (s[i] != ' ' && s[i])
 	{
-		c = s[i++];
 		if (s[i] == '\'' || s[i] == '\"')
 		{
 			c = s[i++];
-			while ((s[i] != c && s[i]) || (s[i] == c && s[i + 1] != ' ' && s[i]))
+			while (s[i] != c && s[i])
+				i++;
+			if (s[i] == c)
 				i++;
 		}
 		if (s[i])
@@ -71,14 +73,14 @@ static char	*ft_cell(const char **s, char *cell)
 	{
 		if (**s == '\'' || **s == '\"')
 		{
-			c = **s;
-			while ((**s != c && **s) || (**s == c && *(*s) + 1 != ' ' && **s))
+			c = *(*s)++;
+			while (**s != c && **s)
 				cell[i++] = *(*s)++;
+			if (**s == c)
+				(*s)++;
 		}
-		if (**s != ' ')
+		if (**s)
 			cell[i++] = *(*s)++;
-		else if (**s)
-			(*s)++;
 	}
 	cell[i] = '\0';
 	return (cell);
@@ -97,6 +99,7 @@ static char	**ft_issplit(const char *s, char **tabs, size_t nb_w)
 		if (!tabs[i])
 			return (NULL);
 		tabs[i] = ft_cell(&s, tabs[i]);
+		ft_printf("%s\n", tabs[i]);
 		i++;
 	}
 	tabs[i] = NULL;
@@ -119,3 +122,10 @@ char	**ft_ppsplit(const char *s)
 	return (ft_issplit(s, tabs, nb_w));
 }
 
+// int main(int ac, char **av)
+// {
+// 	if (ac != 2)
+// 		return (-1);
+// 	ft_ppsplit(av[1]);
+// 	return (0);
+// }
