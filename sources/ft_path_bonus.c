@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lunovill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/29 07:21:29 by lunovill          #+#    #+#             */
-/*   Updated: 2022/05/16 20:01:55 by lunovill         ###   ########.fr       */
+/*   Created: 2022/06/01 04:57:13 by lunovill          #+#    #+#             */
+/*   Updated: 2022/06/01 04:57:22 by lunovill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ char	*ft_path(char *cmd, char *env[])
 	char			**path;
 
 	if (access(cmd, F_OK) != -1)
-		return (cmd);
-	if (cmd[0] == '/' && access(cmd, F_OK) == -1)
-		return (ft_error("access"), exit (127), NULL);
+		return (ft_strdup(cmd));
 	i = 0;
 	path = tab_path(cmd, env);
 	while (path[i])

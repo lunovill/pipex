@@ -49,7 +49,7 @@ LIBS = libft.a
  #=============================================================================#
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 CIFLAGS = -Iincludes -I$(LIBS_DIR)/includes
 CLFLAGS = -L$(LIBS_DIR) -lft
 

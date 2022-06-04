@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lunovill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/17 01:34:36 by lunovill          #+#    #+#             */
-/*   Updated: 2022/05/17 01:35:22 by lunovill         ###   ########.fr       */
+/*   Created: 2022/06/01 04:59:24 by lunovill          #+#    #+#             */
+/*   Updated: 2022/06/01 04:59:36 by lunovill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static size_t	ft_nworld(const char *s)
 			if (s[i] == '\'' || s[i] == '\"')
 			{
 				c = s[i++];
-				while ((s[i] != c && s[i]) || (s[i] == c && s[i + 1] != ' ' && s[i]))
+				while (s[i] != c && s[i])
 					i++;
 			}
 			if (s[i])
@@ -48,11 +48,10 @@ static size_t	ft_nchar(const char *s)
 	i = 0;
 	while (s[i] != ' ' && s[i])
 	{
-		c = s[i++];
 		if (s[i] == '\'' || s[i] == '\"')
 		{
 			c = s[i++];
-			while ((s[i] != c && s[i]) || (s[i] == c && s[i + 1] != ' ' && s[i]))
+			while (s[i] != c && s[i])
 				i++;
 		}
 		if (s[i])
@@ -71,14 +70,13 @@ static char	*ft_cell(const char **s, char *cell)
 	{
 		if (**s == '\'' || **s == '\"')
 		{
-			c = **s;
-			while ((**s != c && **s) || (**s == c && *(*s) + 1 != ' ' && **s))
+			cell[i++] = **s;
+			c = *(*s)++;
+			while (**s != c && **s)
 				cell[i++] = *(*s)++;
 		}
-		if (**s != ' ')
+		if (**s)
 			cell[i++] = *(*s)++;
-		else if (**s)
-			(*s)++;
 	}
 	cell[i] = '\0';
 	return (cell);
@@ -118,4 +116,3 @@ char	**ft_ppsplit(const char *s)
 		return (NULL);
 	return (ft_issplit(s, tabs, nb_w));
 }
-

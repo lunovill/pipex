@@ -43,9 +43,7 @@ char	*ft_path(char *cmd, char *env[])
 	char			**path;
 
 	if (access(cmd, F_OK) != -1)
-		return (cmd);
-	if (cmd[0] == '/' && access(cmd, F_OK) == -1)
-		return (ft_error("access"), exit (127), NULL);
+		return (ft_strdup(cmd));
 	i = 0;
 	path = tab_path(cmd, env);
 	while (path[i])

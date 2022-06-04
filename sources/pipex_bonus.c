@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lunovill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/29 07:31:46 by lunovill          #+#    #+#             */
-/*   Updated: 2022/05/16 20:03:36 by lunovill         ###   ########.fr       */
+/*   Created: 2022/06/01 05:02:21 by lunovill          #+#    #+#             */
+/*   Updated: 2022/06/01 05:05:32 by lunovill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	error_arg(t_arg arg, unsigned int i)
 		if (!arg.infile && i == 0)
 			return ;
 		ft_putstr_fd("pipex: permission denied: \n", 2);
+		ft_putstr(arg.cmds[i]);
 		if (i == arg.size - 1)
 			exit (127);
 	}
@@ -53,13 +54,30 @@ static void	error_arg(t_arg arg, unsigned int i)
 	}
 }
 
+int	ft_waitpid(t_arg arg, int pid_last)
+{
+	int	status;
+	int	tmp;
+	int	ret;
+
+	tmp = wait(&status);
+	while (tmp != -1)
+	{
+		if (tmp == pid_last)
+			ret = status;
+		tmp = wait(&status);
+	}
+	if (!arg.infile || !arg.outfile)
+		return (1);
+	return (WEXITSTATUS(ret));
+}
+
 int	pipex(t_arg arg)
 {
 	unsigned int	i;
 	int				pipefd[2];
 	int				prevfd;
 	int				pid;
-	int				status;
 
 	i = -1;
 	while (++i < arg.size)
@@ -75,7 +93,5 @@ int	pipex(t_arg arg)
 		else if (pid_father(arg, &prevfd, pipefd, i) == -1)
 			return (-1);
 	}
-	while (wait(&status) != -1)
-		;
-	return (WEXITSTATUS(status));
+	return (ft_waitpid(arg, pid));
 }

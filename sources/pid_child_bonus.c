@@ -21,7 +21,7 @@ static int	excmd_first(t_arg arg, int pipefd[2])
 	close(pipefd[0]);
 	fd = open(arg.infile, O_RDONLY);
 	if (fd == -1)
-		return (close(pipefd[1]), -1);
+		return (close(pipefd[1]), ft_error("open"));
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (close(pipefd[1]), close(fd), ft_error("dup2"));
 	close(fd);

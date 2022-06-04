@@ -6,12 +6,12 @@
 /*   By: lunovill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 07:16:32 by lunovill          #+#    #+#             */
-/*   Updated: 2022/05/16 20:18:14 by lunovill         ###   ########.fr       */
+/*   Updated: 2022/06/01 05:07:01 by lunovill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/types.h>
@@ -22,6 +22,8 @@ typedef struct s_arg	t_arg;
 struct					s_arg
 {
 	int		path;
+	int		doc;
+	char	*limit;
 	char	*infile;
 	char	*outfile;
 	char	**cmds;

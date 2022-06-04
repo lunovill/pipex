@@ -6,12 +6,11 @@
 /*   By: lunovill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 03:18:24 by lunovill          #+#    #+#             */
-/*   Updated: 2022/05/18 06:33:53 by lunovill         ###   ########.fr       */
+/*   Updated: 2022/06/01 05:08:21 by lunovill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-// #include "libft.h"
 
 static size_t	ft_nworld(const char *s)
 {
@@ -54,8 +53,6 @@ static size_t	ft_nchar(const char *s)
 			c = s[i++];
 			while (s[i] != c && s[i])
 				i++;
-			if (s[i] == c)
-				i++;
 		}
 		if (s[i])
 			i++;
@@ -73,11 +70,10 @@ static char	*ft_cell(const char **s, char *cell)
 	{
 		if (**s == '\'' || **s == '\"')
 		{
+			cell[i++] = **s;
 			c = *(*s)++;
 			while (**s != c && **s)
 				cell[i++] = *(*s)++;
-			if (**s == c)
-				(*s)++;
 		}
 		if (**s)
 			cell[i++] = *(*s)++;
@@ -99,7 +95,6 @@ static char	**ft_issplit(const char *s, char **tabs, size_t nb_w)
 		if (!tabs[i])
 			return (NULL);
 		tabs[i] = ft_cell(&s, tabs[i]);
-		ft_printf("%s\n", tabs[i]);
 		i++;
 	}
 	tabs[i] = NULL;
@@ -121,11 +116,3 @@ char	**ft_ppsplit(const char *s)
 		return (NULL);
 	return (ft_issplit(s, tabs, nb_w));
 }
-
-// int main(int ac, char **av)
-// {
-// 	if (ac != 2)
-// 		return (-1);
-// 	ft_ppsplit(av[1]);
-// 	return (0);
-// }
