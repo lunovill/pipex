@@ -24,7 +24,8 @@ static int	here_doc(char *limit)
 	tmp = NULL;
 	if (get_next_line(STDIN_FILENO, &tmp, 1) == -1)
 		return (-1);
-	while (ft_strncmp(limit, tmp, ft_strlen(tmp)) || ft_strlen(limit) != ft_strlen(tmp))
+	while (ft_strncmp(limit, tmp, ft_strlen(tmp))
+		|| ft_strlen(limit) != ft_strlen(tmp))
 	{
 		ft_putstr_fd(tmp, fd);
 		ft_putchar_fd('\n', fd);
